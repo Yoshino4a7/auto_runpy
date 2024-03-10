@@ -1,5 +1,4 @@
 import os
-import time
 import subprocess
 import sys
 import time
@@ -225,6 +224,7 @@ if __name__== "__main__":
     flag_dir = dir_name
     MD5_dir = os.path.join(dir_name, "MD5.txt")
     mergeRawFq_dir = os.path.join(dir_name, "00.mergeRawFq")
+    print(mergeRawFq_dir)
     # mergeRawFq_dir[]="\\"
 
     mergeRawFq_dir_list = os.listdir(mergeRawFq_dir)
