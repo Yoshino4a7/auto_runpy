@@ -83,7 +83,7 @@ def md5_check():
     try:
         for name,dir in mergeRawFq_file_list_RNA.items():
             file_dir = os.path.join(os.path.join(mergeRawFq_dir,dir),name)
-            md5 = subprocess.getoutput(f"md5sum {file_dir}")[1:33]
+            md5 = subprocess.getoutput(f"md5sum {file_dir}")[:32]
 
             if (md5 in md5_list) is True:
                 if dir[0] == "R":
@@ -224,7 +224,7 @@ if __name__== "__main__":
     flag_dir = dir_name
     MD5_dir = os.path.join(dir_name, "MD5.txt")
     mergeRawFq_dir = os.path.join(dir_name, "00.mergeRawFq")
-    print(mergeRawFq_dir)
+    # print(mergeRawFq_dir)
     # mergeRawFq_dir[]="\\"
 
     mergeRawFq_dir_list = os.listdir(mergeRawFq_dir)
