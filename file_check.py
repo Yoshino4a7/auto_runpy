@@ -84,7 +84,7 @@ def md5_check():
         for name,dir in mergeRawFq_file_list_RNA.items():
             file_dir = os.path.join(os.path.join(mergeRawFq_dir,dir),name)
             md5 = subprocess.getoutput(f"md5sum {file_dir}")[:32]
-
+            
             if (md5 in md5_list) is True:
                 if dir[0] == "R":
                     ok_filelist_RNA[name] = dir
@@ -95,7 +95,7 @@ def md5_check():
     try:
         for name,dir in mergeRawFq_file_list_DNA.items():
             file_dir = os.path.join(os.path.join(mergeRawFq_dir,dir),name)
-            md5 = subprocess.getoutput(f"md5sum {file_dir}")[1:33]
+            md5 = subprocess.getoutput(f"md5sum {file_dir}")[:32]
 
             if (md5 in md5_list) is True:
                 if dir[0] == "R":
@@ -106,9 +106,9 @@ def md5_check():
         pass
 
 def ok_file_run_DNA():
-    try:
+    
         # 获得已通过校验的文件序列
-        # print(ok_filelist_DNA)
+        #print(ok_filelist_DNA)
         for name in ok_filelist_DNA.keys():
             if name in file_execute_DNA.keys():
                 if file_execute_DNA[name] is True:
@@ -119,22 +119,22 @@ def ok_file_run_DNA():
                     # 该文件执行脚本
                     run_dir = os.path.join(mergeRawFq_dir, ok_filelist_DNA[name])
                     # print(os.path.join(mergeRawFq_dir, ok_filelist_RNA[name]))
-                    subprocess.run(f'python {dna_name} {os.path.join(run_dir, name)}')
+                    subprocess.run(f'python3 {dna_name} {os.path.join(run_dir, name)}',shell=True)
                     file_execute_DNA[name] = True
             else:
                 # 该文件执行脚本
                 run_dir = os.path.join(mergeRawFq_dir, ok_filelist_DNA[name])
                 # print(os.path.join(mergeRawFq_dir, ok_filelist_RNA[name]))
-                subprocess.run(f'python {dna_name} {os.path.join(run_dir, name)}')
-                file_execute_RNA[name] = True
-    except:
-        pass
+                subprocess.run(f'python3 {dna_name} {os.path.join(run_dir, name)}',shell=True)
+                file_execute_DNA[name] = True
+    
 
 def ok_file_run_RNA():
-    try:
+    
         # 获得已通过校验的文件序列
-        # print(ok_filelist_RNA)
+        
         for name in ok_filelist_RNA.keys():
+            
             if name in file_execute_RNA.keys():
                 if file_execute_RNA[name] is True:
                     # 该文件已执行过脚本 略过
@@ -143,17 +143,18 @@ def ok_file_run_RNA():
                 else:
                     # 该文件执行脚本
                     run_dir = os.path.join(mergeRawFq_dir, ok_filelist_RNA[name])
+                    #print(os.path.join(run_dir, name))
                     # print(os.path.join(mergeRawFq_dir, ok_filelist_RNA[name]))
-                    subprocess.run(f'python {rna_name} {os.path.join(run_dir, name)}')
+                    subprocess.run(f'python3 {rna_name} {os.path.join(run_dir, name)}',shell=True)
                     file_execute_RNA[name] = True
             else:
                 # 该文件执行脚本
                 run_dir = os.path.join(mergeRawFq_dir, ok_filelist_RNA[name])
+                
                 # print(os.path.join(mergeRawFq_dir, ok_filelist_RNA[name]))
-                subprocess.run(f'python {rna_name} {os.path.join(run_dir, name)}')
+                subprocess.run(f'python3 {rna_name} {os.path.join(run_dir, name)}',shell=True)
                 file_execute_RNA[name] = True
-    except:
-        pass
+    
 
 def transform_path(path):
     return 1
@@ -161,8 +162,8 @@ def transform_path(path):
 if __name__== "__main__":
     command_list = ["-d", "--dicrectory","-e","--end","-dna","-rna"]
     dir_name = "."
-    dna_name = "./DNA.py"
-    rna_name = "./RNA.py"
+    dna_name = "DNA.py"
+    rna_name = "RNA.py"
     end_name = ".txt"
     if "-d" in sys.argv:
         try:
@@ -224,7 +225,7 @@ if __name__== "__main__":
     flag_dir = dir_name
     MD5_dir = os.path.join(dir_name, "MD5.txt")
     mergeRawFq_dir = os.path.join(dir_name, "00.mergeRawFq")
-    # print(mergeRawFq_dir)
+    #print(mergeRawFq_dir)
     # mergeRawFq_dir[]="\\"
 
     mergeRawFq_dir_list = os.listdir(mergeRawFq_dir)
