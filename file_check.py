@@ -168,10 +168,7 @@ if __name__== "__main__":
     if "-d" in sys.argv:
         try:
             j = sys.argv.index("-d")
-            list_dir=[]
-            list_dir = list("\\".join(sys.argv[j + 1].split("\\")))
-            list_dir.insert(2, "\\")
-            dir_name = "".join(list_dir)
+            dir_name = sys.argv[j + 1]
         except IndexError:
             pass
     else:
@@ -179,9 +176,8 @@ if __name__== "__main__":
     if "--dicrectory" in sys.argv:
         try:
             j = sys.argv.index("-d")
-            list_dir = list("\\".join(sys.argv[j + 1].split("\\")))
-            list_dir.insert(2, "\\")
-            dir_name = "".join(list_dir)
+            
+            dir_name = sys.argv[j + 1]
         except IndexError:
             pass
     else:
